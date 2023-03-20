@@ -1,0 +1,5 @@
+package com.iesp.tecback.repositories;
+
+public interface ClienteRepository {
+
+}

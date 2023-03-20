@@ -1,0 +1,5 @@
+package com.iesp.tecback.model;
+
+public class Cliente {
+
+}

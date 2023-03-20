@@ -1,0 +1,31 @@
+package com.iesp.tecback.repositories;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
+
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import com.iesp.tecback.enums.FormaPagamento;
+import com.iesp.tecback.model.Pedido;
+
+@Repository
+public interface PedidoRepository extends JpaRepository<Pedido, Long>{
+
+	
+	public List<Pedido> findByPedidoId(Long pedidoId);
+	
+	@Query(value = "SELECT * FROM pedido WHERE pagamento = ?1", nativeQuery = true)
+	 List<Pedido> buscarPorFormaPagamento(FormaPagamento pagamento);
+	  
+	@Query("SELECT p FROM Pedido p JOIN FETCH p.produto prod WHERE prod.nome = :nomeProduto")
+	List<Pedido> findByNomeProduto(@Param("nomeProduto") String nomeProduto);
+}

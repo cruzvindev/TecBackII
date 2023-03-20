@@ -1,0 +1,43 @@
+package com.iesp.tecback.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.iesp.tecback.model.Cliente;
+import com.iesp.tecback.repositories.ClienteRepository;
+
+@RestController
+@RequestMapping("/clientes")
+public class ClienteController {
+
+	@Autowired
+	ClienteRepository clienteRepository;
+	
+	
+	@GetMapping("/rua/{nomeRua}")
+	public List<Cliente> buscaPorNomeDaRua(@PathVariable String nomeRua){
+	    return clienteRepository.findByNomeDaRuaContaining(nomeRua);
+	}
+
+	@GetMapping("/{nome}")
+    public List<Cliente> buscaPorNome(@PathVariable String nome){
+        return clienteRepository.findByNome(nome);
+    }
+
+    @GetMapping("/bairro/{nome}")
+    public List<Cliente> buscaPorBairro(@PathVariable String nome){
+        return clienteRepository.findByBairroContaining(nome);
+	
+	
+	
+//	@GetMapping("/{nome}")
+//	public List<Cliente> buscaPorRua(@PathVariable String nome){
+//		return clienteRepository.findByNomeDaRuaContaining(nome);
+//	}
+	
+}
